@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.hun.tamim",
+      "sha256_cert_fingerprints": [
+        "3C:99:E5:9F:20:FC:F3:00:5D:60:F4:AE:68:D8:E3:9B:14:95:E2:B7:7E:94:05:32:F5:39:95:CF:4F:23:0B:1A",
+        "0E:02:B8:36:D6:75:22:DB:F8:0A:B3:0C:53:52:E0:A8:85:5E:3A:DB:7B:19:32:42:FA:33:00:51:A6:69:80:46"
+      ]
+    }
+  }
+]
