@@ -44,14 +44,38 @@ export default function BridgePage() {
     // 앱 실행 시도
     window.location.href = appUrl;
 
+    // eslint-disable-next-line prefer-const
+    let timeout: NodeJS.Timeout;
+    let handleVisibilityChange: () => void;
+
+    // iOS에서 앱이 설치되어 있는지 확인
+    if (!isAndroid) {
+      handleVisibilityChange = () => {
+        if (document.hidden) {
+          // 앱이 실행되었으므로 타임아웃을 취소
+          clearTimeout(timeout);
+        }
+      };
+
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+    }
+
     // 앱이 설치되어 있지 않은 경우를 위한 타임아웃
-    const timeout = setTimeout(() => {
+    timeout = setTimeout(() => {
       const fallbackUrl = isAndroid ? ANDROID_STORE_URL : IOS_STORE_URL;
 
       window.location.href = fallbackUrl;
     }, 2000);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      if (!isAndroid && handleVisibilityChange) {
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange
+        );
+      }
+    };
   }, []);
 
   return (
